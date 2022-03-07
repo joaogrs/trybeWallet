@@ -1,5 +1,9 @@
-// import user from './user';
-// import wallet from './wallet';
+import { combineReducers, createStore } from 'redux';
+import { composeWithDevTools } from 'redux-devtools-extension';
+import user from './user';
 
-// Configure os seus reducers.
-// ATENÇÃO: você obrigatoriamente tem que utilizar as chaves "user" e "wallet" no seu estado global
+const rootReducer = combineReducers({ user });
+
+export const store = createStore(rootReducer, composeWithDevTools());
+
+export default rootReducer;
