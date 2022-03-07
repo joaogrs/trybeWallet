@@ -1,3 +1,3 @@
-const walletReducer = (state, action) => state;
+const walletReducer = (state) => state;
 
 export default walletReducer;
