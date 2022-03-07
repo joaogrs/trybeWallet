@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { loginToState } from '../actions';
 
 class Login extends React.Component {
   state = {
@@ -29,8 +31,9 @@ class Login extends React.Component {
 
   render() {
     const { email, password } = this.state;
+    const { dispatchEmail } = this.props;
     return (
-      <form onSubmit={ this.onClickButton }>
+      <form>
         <input
           type="email"
           name="email"
@@ -45,7 +48,14 @@ class Login extends React.Component {
           value={ password }
           onChange={ this.handleChange }
         />
-        <button disabled={ !this.verifyEmailAndPassword() } type="submit">Entrar</button>
+        <button
+          onClick={ () => { dispatchEmail(email); this.onClickButton(); } }
+          disabled={ !this.verifyEmailAndPassword() }
+          type="submit"
+        >
+          Entrar
+
+        </button>
       </form>
     );
   }
@@ -55,4 +65,8 @@ Login.propTypes = {
   history: PropTypes.shape({ push: PropTypes.func }).isRequired,
 };
 
-export default Login;
+const mapDispatchToProps = (dispatch) => ({
+  dispatchEmail: (payload) => dispatch(loginToState(payload)),
+});
+
+export default connect(null, mapDispatchToProps)(Login);
