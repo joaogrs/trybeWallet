@@ -58,15 +58,16 @@ class FormWallet extends React.Component {
           Moeda
           <select
             id="currency"
+            name="currency"
             data-testid="currency-input"
             value={ currency }
             onChange={ this.handleChange }
           >
             {currencies
               .filter((currencyItem) => currencyItem !== 'USDT')
-              .map((currencyItem, index) => (
+              .map((currencyItem) => (
                 <option
-                  key={ index }
+                  key={ currencyItem }
                   data-testid={ currencyItem }
                   value={ currencyItem }
                 >
