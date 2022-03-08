@@ -5,8 +5,8 @@ import { connect } from 'react-redux';
 class Header extends React.Component {
   render() {
     const { expenses, email } = this.props;
-    const sumExpense = expenses.reduce((sum, { value, currency, currencyPrice }) => (
-      currencyPrice[currency].ask * value + sum
+    const sumExpense = expenses.reduce((sum, { value, currency, exchangeRates }) => (
+      exchangeRates[currency].ask * value + sum
     ), 0);
     return (
       <div>

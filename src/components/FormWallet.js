@@ -7,7 +7,7 @@ class FormWallet extends React.Component {
   state = {
     id: 0,
     value: '',
-    currency: 'USD',
+    currency: '',
     method: '',
     tag: '',
     description: '',
