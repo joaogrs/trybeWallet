@@ -34,20 +34,26 @@ class Login extends React.Component {
     const { dispatchEmail } = this.props;
     return (
       <form>
-        <input
-          type="email"
-          name="email"
-          data-testid="email-input"
-          value={ email }
-          onChange={ this.handleChange }
-        />
-        <input
-          type="password"
-          name="password"
-          data-testid="password-input"
-          value={ password }
-          onChange={ this.handleChange }
-        />
+        <label htmlFor="email">
+          Email:
+          <input
+            type="email"
+            name="email"
+            data-testid="email-input"
+            value={ email }
+            onChange={ this.handleChange }
+          />
+        </label>
+        <label htmlFor="password">
+          Password:
+          <input
+            type="password"
+            name="password"
+            data-testid="password-input"
+            value={ password }
+            onChange={ this.handleChange }
+          />
+        </label>
         <button
           onClick={ () => { dispatchEmail(email); this.onClickButton(); } }
           disabled={ !this.verifyEmailAndPassword() }

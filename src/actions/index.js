@@ -1,6 +1,7 @@
 export const LOGIN = 'LOGIN';
 export const GET_CURRENCIES_NAME = 'GET_CURRENCIES_NAME';
 export const APPEND_EXPENSE = 'APPEND_EXPENSE';
+export const DELETE_EXPENSE = 'DELETE_EXPENSE';
 
 export const loginToState = (email) => ({
   type: LOGIN,
@@ -18,6 +19,11 @@ export const appendExpense = (newExpense, exchangeRates) => ({
     ...newExpense,
     exchangeRates,
   },
+});
+
+export const deleteExpense = (id) => ({
+  type: DELETE_EXPENSE,
+  payload: id,
 });
 
 export const fetchCurrencies = () => async (dispatch) => {

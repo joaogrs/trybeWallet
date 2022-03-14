@@ -14,7 +14,7 @@ class Header extends React.Component {
           {email}
         </p>
         <p data-testid="total-field">
-          {sumExpense}
+          {Number(sumExpense).toFixed(2)}
         </p>
         <p data-testid="header-currency-field">
           BRL
