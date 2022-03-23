@@ -3,18 +3,18 @@
 }
 
 .head-table {
-  width: 100%;
   display: flex;
-  justify-content:space-around;
+  width: 100%;
+  justify-content: space-around;
   background-color: rgb(180, 168, 61);
 }
 
 .table-body {
-    display: block;
+  display: block;
 }
 
 .table-line {
-    display: flex;
-    width: 100%;
-    justify-content: space-around;
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
 }
