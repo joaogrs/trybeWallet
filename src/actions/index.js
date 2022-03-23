@@ -2,6 +2,7 @@ export const LOGIN = 'LOGIN';
 export const GET_CURRENCIES_NAME = 'GET_CURRENCIES_NAME';
 export const APPEND_EXPENSE = 'APPEND_EXPENSE';
 export const DELETE_EXPENSE = 'DELETE_EXPENSE';
+export const EDIT_EXPENSE = 'EDIT_EXPENSE';
 
 export const loginToState = (email) => ({
   type: LOGIN,
@@ -18,6 +19,13 @@ export const appendExpense = (newExpense, exchangeRates) => ({
   payload: {
     ...newExpense,
     exchangeRates,
+  },
+});
+
+export const editExpense = (expenseForEditing) => ({
+  type: EDIT_EXPENSE,
+  payload: {
+    ...expenseForEditing,
   },
 });
 

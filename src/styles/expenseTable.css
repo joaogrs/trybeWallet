@@ -1,0 +1,20 @@
+.table {
+  display: block;
+}
+
+.head-table {
+  width: 100%;
+  display: flex;
+  justify-content:space-around;
+  background-color: rgb(180, 168, 61);
+}
+
+.table-body {
+    display: block;
+}
+
+.table-line {
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+}

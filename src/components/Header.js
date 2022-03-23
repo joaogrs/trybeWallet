@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import '../styles/header.css';
 
 class Header extends React.Component {
   render() {
@@ -9,12 +10,12 @@ class Header extends React.Component {
       exchangeRates[currency].ask * value + sum
     ), 0);
     return (
-      <div>
+      <div className="header-container">
         <p data-testid="email-field">
-          {email}
+          {`Email: ${email}`}
         </p>
         <p data-testid="total-field">
-          {Number(sumExpense).toFixed(2)}
+          {`Despesa Total: ${Number(sumExpense).toFixed(2)}`}
         </p>
         <p data-testid="header-currency-field">
           BRL

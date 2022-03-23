@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { fetchPrices } from '../actions';
+import { fetchPrices, editExpense } from '../actions';
+import '../styles/formWallet.css';
 
 class FormWallet extends React.Component {
   state = {
@@ -11,6 +12,30 @@ class FormWallet extends React.Component {
     method: '',
     tag: '',
     description: '',
+    editionMode: false,
+    obj: {},
+  }
+
+  componentDidUpdate() {
+    this.verifyEditionMode();
+  }
+
+  verifyEditionMode = () => {
+    const { objOfEditing,
+      objOfEditing: { id, value, description, currency, method, tag } } = this.props;
+    const { editionMode } = this.state;
+    if (editionMode === false && Object.keys(objOfEditing).length !== 0) {
+      this.setState({
+        editionMode: true,
+        obj: objOfEditing,
+        id,
+        value,
+        description,
+        currency,
+        method,
+        tag,
+      });
+    }
   }
 
   handleChange = ({ target: { value, id } }) => {
@@ -21,19 +46,34 @@ class FormWallet extends React.Component {
 
   onClickButton = () => {
     const { dispatchExpense } = this.props;
-    dispatchExpense(this.state);
+    const stateOfExpenses = this.state;
+    delete stateOfExpenses.editionMode;
+    delete stateOfExpenses.obj;
+    dispatchExpense(stateOfExpenses);
     this.setState(({ id }) => ({
       id: id + 1,
       value: 0,
     }));
   }
 
+  onClickEdit = () => {
+    const { editExpenses, clearObjOfEditing } = this.props;
+    const stateOfEditing = this.state;
+    delete stateOfEditing.editionMode;
+    delete stateOfEditing.obj;
+    editExpenses(stateOfEditing);
+    clearObjOfEditing();
+    this.setState({
+      editionMode: false,
+    });
+  }
+
   render() {
     const { currencies } = this.props;
-    const { value, currency, method, tag, description } = this.state;
+    const { value, currency, method, tag, description, editionMode } = this.state;
     return (
-      <form>
-        <label htmlFor="value">
+      <form className="form-container">
+        <label htmlFor="value" className="label-wallet">
           Valor
           <input
             type="number"
@@ -41,9 +81,10 @@ class FormWallet extends React.Component {
             value={ value }
             id="value"
             data-testid="value-input"
+            className="inputs-wallet"
           />
         </label>
-        <label htmlFor="description">
+        <label htmlFor="description" className="label-wallet">
           Descrição
           <input
             id="description"
@@ -51,10 +92,11 @@ class FormWallet extends React.Component {
             onChange={ this.handleChange }
             type="text"
             data-testid="description-input"
+            className="inputs-wallet"
           />
 
         </label>
-        <label htmlFor="currency">
+        <label htmlFor="currency" className="label-wallet">
           Moeda
           <select
             id="currency"
@@ -62,6 +104,7 @@ class FormWallet extends React.Component {
             data-testid="currency-input"
             value={ currency }
             onChange={ this.handleChange }
+            className="inputs-wallet"
           >
             {currencies
               .filter((currencyItem) => currencyItem !== 'USDT')
@@ -77,13 +120,14 @@ class FormWallet extends React.Component {
               ))}
           </select>
         </label>
-        <label htmlFor="method">
+        <label htmlFor="method" className="label-wallet">
           Método de Pagamento
           <select
             data-testid="method-input"
             value={ method }
             onChange={ this.handleChange }
             id="method"
+            className="inputs-wallet"
           >
             <option value="">{' '}</option>
             <option value="Dinheiro">Dinheiro</option>
@@ -91,13 +135,14 @@ class FormWallet extends React.Component {
             <option value="Cartão de débito">Cartão de débito</option>
           </select>
         </label>
-        <label htmlFor="tag">
+        <label htmlFor="tag" className="label-wallet">
           Categoria
           <select
             value={ tag }
             onChange={ this.handleChange }
             data-testid="tag-input"
             id="tag"
+            className="inputs-wallet"
           >
             <option value="">{' '}</option>
             <option value="Alimentação">Alimentação</option>
@@ -107,10 +152,16 @@ class FormWallet extends React.Component {
             <option value="Saúde">Saúde</option>
           </select>
         </label>
-        <button type="button" onClick={ this.onClickButton }>
-          Adicionar Despesa
-        </button>
-
+        {editionMode
+          ? (
+            <button type="button" className="btn-wallet" onClick={ this.onClickEdit }>
+              Editar despesa
+            </button>
+          )
+          : (
+            <button type="button" className="btn-wallet" onClick={ this.onClickButton }>
+              Adicionar Despesa
+            </button>)}
       </form>
     );
   }
@@ -122,11 +173,15 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   dispatchExpense: (payload) => dispatch(fetchPrices(payload)),
+  editExpenses: (state) => dispatch(editExpense(state)),
 });
 
 FormWallet.propTypes = {
   dispatchExpense: PropTypes.func.isRequired,
   currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
+  objOfEditing: PropTypes.objectOf.isRequired,
+  editExpenses: PropTypes.func.isRequired,
+  clearObjOfEditing: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(FormWallet);

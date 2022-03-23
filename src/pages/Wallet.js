@@ -7,18 +7,37 @@ import FormWallet from '../components/FormWallet';
 import ExpenseTable from '../components/ExpenseTable';
 
 class Wallet extends React.Component {
+  state = {
+    objOfEditing: {},
+  }
+
   componentDidMount() {
     const { dispatchCurrencies } = this.props;
     dispatchCurrencies();
   }
 
+  onClickEditing = (objOfEditing) => (
+    this.setState({
+      objOfEditing,
+    })
+  )
+
+  clearObjOfEditing = () => {
+    this.setState({
+      objOfEditing: {},
+    });
+  }
+
   render() {
+    const { objOfEditing } = this.state;
     return (
       <>
         <Header />
-        <FormWallet />
-        <ExpenseTable />
-
+        <FormWallet
+          clearObjOfEditing={ this.clearObjOfEditing }
+          objOfEditing={ objOfEditing }
+        />
+        <ExpenseTable editingFunc={ (param) => this.onClickEditing(param) } />
       </>
 
     );
