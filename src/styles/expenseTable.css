@@ -3,10 +3,10 @@
 }
 
 .head-table {
-  display: flex;
-  width: 100%;
-  justify-content: space-around;
   background-color: rgb(180, 168, 61);
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
 }
 
 .table-body {

@@ -4,25 +4,25 @@
 }
 
 .inputs-wallet {
+  border: none;
   border-radius: 4px;
   height: 40px;
-  border: none;
   margin-left: 5px;
 }
 
 .btn-wallet {
   background-color: rgb(255, 238, 0);
+  border: none;
   border-radius: 4px;
-  height: 40px;
   color: white;
   font-size: 13px;
-  border: none;
+  height: 40px;
   margin-left: 10px;
   padding-left: 5px;
   padding-right: 5px;
 }
 
-/*.inputs-wallet #currency {
+/* .inputs-wallet #currency {
   width: 80px;
 }
 
